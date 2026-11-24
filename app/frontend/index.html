@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Dashboard</title>
+</head>
+<body>
+
+    <h1>Inventory Management</h1>
+
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Department</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody id="inventory"></tbody>
+    </table>
+
+    <script>
+        fetch('/api/items')
+            .then(response => response.json())
+            .then(items => {
+                const table = document.getElementById('inventory');
+
+                items.forEach(item => {
+                    table.innerHTML += `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.department}</td>
+                            <td>${item.quantity}</td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+
+</body>
+</html>
